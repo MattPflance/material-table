@@ -1,9 +1,11 @@
 import {
   Grid,
-  ThemeProvider,
-  StyledEngineProvider,
+  MuiThemeProvider,
+  FormControl,
+  FormHelperText,
+  MenuItem,
+  Select,
   Button,
-  adaptV4Theme,
 } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import React, { Component } from "react";
@@ -41,6 +43,7 @@ for (let i = 0; i < 1; i++) {
 
 class App extends Component {
   tableRef = React.createRef();
+  remoteDataTableRef = React.createRef();
 
   colRenderCount = 0;
 
@@ -479,6 +482,22 @@ class App extends Component {
       { title: "First Name", field: "first_name", defaultFilter: "De" },
       { title: "Last Name", field: "last_name" },
     ],
+    dragOption: "disabled",
+    remoteDataOrder: [],
+  };
+
+  resetDataOrder = (data) => {
+    this.state.remoteDataOrder = [];
+    data.forEach((el) => this.state.remoteDataOrder.push(el.id));
+  };
+
+  reorderData = (data) => {
+    return data.sort((a, b) => {
+      const aPos = this.state.remoteDataOrder.indexOf(a.id);
+      const bPos = this.state.remoteDataOrder.indexOf(b.id);
+
+      return aPos === -1 ? 1 : bPos === -1 ? 1 : aPos - bPos;
+    });
   };
 
   render() {

@@ -220,6 +220,14 @@ class MTableFilterRow extends React.Component {
         </TableCell>
       ));
 
+    if (this.props.draggableCells) {
+      columns.splice(
+        0,
+        0,
+        <TableCell padding="none" key="key-draggable-column" />
+      );
+    }
+
     if (this.props.selection) {
       columns.splice(
         0,
@@ -287,6 +295,7 @@ MTableFilterRow.defaultProps = {
   columns: [],
   detailPanelColumnAlignment: "left",
   selection: false,
+  draggableCells: false,
   hasActions: false,
   localization: {
     filterTooltip: "Filter",
@@ -303,6 +312,7 @@ MTableFilterRow.propTypes = {
   filterCellStyle: PropTypes.object,
   filterRowStyle: PropTypes.object,
   selection: PropTypes.bool.isRequired,
+  draggableCells: PropTypes.bool,
   actionsColumnIndex: PropTypes.number,
   hasActions: PropTypes.bool,
   localization: PropTypes.object,
